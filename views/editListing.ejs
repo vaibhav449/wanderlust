@@ -1,0 +1,72 @@
+<% layout("/layouts/boilerplate") %>
+<body class="bg-gray-100 dark:bg-gray-900">
+  <div class="h-screen flex items-center justify-center">
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" "
+          class="w-full max-w-md bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md flex flex-col space-y-4 border border-gray-200 dark:border-gray-700">
+      
+      <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100 text-center">Edit Listing</h2>
+      
+      <!-- Name -->
+      <div>
+        <label for="name" class="block text-gray-700 dark:text-gray-200 mb-1">Name</label>
+        <input id="name" name="name" type="text" value="<%= listing.name %>" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Description -->
+      <div>
+        <label for="description" class="block text-gray-700 dark:text-gray-200 mb-1">Description</label>
+        <textarea id="description" name="description" rows="3" required
+                  class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                         focus:outline-none focus:ring-2 focus:ring-blue-500"><%= listing.description %></textarea>
+      </div>
+      
+      <!-- Price -->
+      <div>
+        <label for="price" class="block text-gray-700 dark:text-gray-200 mb-1">Price ($)</label>
+        <input id="price" name="price" type="number" min="0" step="0.01" value="<%= listing.price %>" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Location -->
+      <div>
+        <label for="location" class="block text-gray-700 dark:text-gray-200 mb-1">Location</label>
+        <input id="location" name="location" type="text" value="<%= listing.location %>" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Country -->
+      <div>
+        <label for="country" class="block text-gray-700 dark:text-gray-200 mb-1">Country</label>
+        <input id="country" name="country" type="text" value="<%= listing.country %>" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Image URL or File Upload -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-200 mb-1">Image</label>
+        <!-- URL input prefilled if exists -->
+        <input name="image" type="text" placeholder="Image URL" value="<%= listing.image || '' %>"
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+
+      </div>
+      
+      <!-- Submit & Cancel -->
+      <div class="flex flex-wrap gap-3">
+        <button type="submit"
+                class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300">
+          Update Listing
+        </button>
+        <a href="/listings/<%= listing._id %>"
+           class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</body>

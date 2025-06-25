@@ -1,0 +1,66 @@
+<% layout("/layouts/boilerplate") %>
+<body class="bg-gray-100 dark:bg-gray-900">
+  <div class="h-screen w-full flex items-center justify-center">
+    <form action="/listings" method="post"
+          class="w-full  max-w-md bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md flex flex-col space-y-4 border border-gray-200 dark:border-gray-700">
+      
+      <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100 text-center">Add Listing</h2>
+      
+      <!-- Name -->
+      <div>
+        <label for="name" class="block text-gray-700 dark:text-gray-200 mb-1">Name</label>
+        <input id="name" name="name" type="text" placeholder="Name" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Description -->
+      <div>
+        <label for="description" class="block text-gray-700 dark:text-gray-200 mb-1">Description</label>
+        <textarea id="description" name="description" rows="3" placeholder="Description" required
+                  class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                         focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+      
+      <!-- Price -->
+      <div>
+        <label for="price" class="block text-gray-700 dark:text-gray-200 mb-1">Price ($)</label>
+        <input id="price" name="price" type="number" placeholder="Price" min="0" step="0.01" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Location -->
+      <div>
+        <label for="location" class="block text-gray-700 dark:text-gray-200 mb-1">Location</label>
+        <input id="location" name="location" type="text" placeholder="Location" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Country -->
+      <div>
+        <label for="country" class="block text-gray-700 dark:text-gray-200 mb-1">Country</label>
+        <input id="country" name="country" type="text" placeholder="Country" required
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+      
+      <!-- Image URL or File Upload -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-200 mb-1">Image</label>
+        <!-- Option 1: URL input -->
+        <input name="image" type="text" placeholder="Image URL"
+               class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 
+                      focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+
+      </div>
+      
+      <!-- Submit -->
+      <button type="submit"
+              class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+        Add Listing
+      </button>
+    </form>
+  </div>
+</body>
