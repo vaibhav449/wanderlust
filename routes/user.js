@@ -23,8 +23,15 @@ router.post(
     req.flash('success', 'Welcome back!');
     const redirectUrl = res.locals.redirectUrl || '/listings';
     console.log('Redirecting to:', redirectUrl); // Log the redirect URL for debugging
-    res.redirect(redirectUrl);
+    
+    try {
+        res.redirect(redirectUrl);
+
+    } catch(error) {
+
+        res.redirect('/listings'); // Fallback redirect if an error occurs
   }
+}
 );
 
 

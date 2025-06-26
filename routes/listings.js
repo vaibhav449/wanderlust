@@ -18,13 +18,17 @@ router.get('/new',checkAuthentication,setRedirection ,(req, res) => {
     console.log('Rendering addListing form');
     res.render('addListing');
 });
-// shows listings
+// shows listing
 router.get('/:id' , async (req, res) => {
   const id = req.params.id;
   try {
     const listing = await Listing.findById(id)
       .populate({
         path: 'reviews',
+        populate: {
+          path: 'author', // Populate the author field in reviews
+          select: 'username' // Populate the username field from the User model
+        }
       }).populate({
         path: 'owner',
       })
@@ -32,8 +36,8 @@ router.get('/:id' , async (req, res) => {
     if (!listing) {
       return res.status(404).send('Listing not found');
     }
-    console.log('Listing found:', listing);
-    console.log("User : ", res.locals.currentUser);
+    // console.log('Listing found:', listing);
+    // console.log("User : ", res.locals.currentUser);
     // Now listing.reviews is an array of review objects, not just ObjectIds
     res.render('showListing', { listing });
   } catch (err) {

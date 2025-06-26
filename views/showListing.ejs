@@ -81,6 +81,14 @@
               <li class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                 <!-- Display rating as stars -->
                 <div class="flex items-center mb-2">
+                  <p class="text-sm text-gray-500 mb-1 ">
+                   <% if (review.author && review.author.username) { %>
+                     Reviewed by <%= review.author.username %> :  
+                   <% } else { %>
+                     Anonymous
+                   <% } %>
+                 </p>
+                 
                   <% for (let i = 1; i <= 5; i++) { %>
                     <% if (i <= review.rating) { %>
                       <!-- filled star -->

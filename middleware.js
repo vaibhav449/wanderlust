@@ -11,13 +11,41 @@ const checkAuthentication = (req, res, next) => {
 };
 
 const setRedirection = (req, res, next) => {
-    if (req.session.returnTo) {
-        console.log('Setting redirection URL');
-        res.locals.redirectUrl = req.session.returnTo;
-        console.log('Redirect URL set to:', res.locals.redirectUrl);
+  const returnTo = req.session.returnTo;
+
+  if (returnTo) {
+    // Match:
+    // 1) POST to /listings/:id/reviews
+    // 2) DELETE (via _method) /listings/:id/reviews/:reviewId
+    const reviewPostMatch = returnTo.match(/^\/listings\/([^\/]+)\/reviews$/);
+    const reviewDeleteMatch = returnTo.match(
+      /^\/listings\/([^\/]+)\/reviews\/[^\/]+(?:\?.*)?$/
+    );
+
+    if (reviewPostMatch) {
+      // /listings/:id/reviews → /listings/:id
+      const listingId = reviewPostMatch[1];
+      res.locals.redirectUrl = `/listings/${listingId}`;
+      console.log('Review-POST path detected, redirecting to listing:', res.locals.redirectUrl);
+
+    } else if (reviewDeleteMatch) {
+      // /listings/:id/reviews/:reviewId[?...] → /listings/:id
+      const listingId = reviewDeleteMatch[1];
+      res.locals.redirectUrl = `/listings/${listingId}`;
+      console.log('Review-DELETE path detected, redirecting to listing:', res.locals.redirectUrl);
+
+    } else {
+      // Any other saved URL
+      res.locals.redirectUrl = returnTo;
+      console.log('Setting redirection URL to:', res.locals.redirectUrl);
     }
-    next();
+  }
+
+  next();
 };
+
+
+
 const isOwner = async (req, res, next) => {
     try {
         const listingId = req.params.id;
@@ -27,6 +55,7 @@ const isOwner = async (req, res, next) => {
             req.flash('error', 'Listing not found.');
             return res.redirect('/listings');
         }
+        console.log('Listing found:', listing);
         // Compare the listing's owner to the logged-in user
         if (listing.owner._id.equals(req.user._id)) {
             return next();
